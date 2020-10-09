@@ -22,6 +22,13 @@ No part of these notes is specifically intended to be more important than any ot
 
    introduction
    version-control
+   environments
+   documentation
+   testing
+   ci
+   packaging
+   containerisation
+   high-throughput
 
 
 
