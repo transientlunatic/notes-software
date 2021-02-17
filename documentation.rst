@@ -276,7 +276,7 @@ You can build your documentation by running
 
 .. code-block:: console
 
-   make html
+   $ make html
    
 which will generate a website (if you chose the defaults in ``sphinx-quickstart`` these will be in a directory inside your current directory, called ``_build/html``)
 
