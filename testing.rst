@@ -362,6 +362,39 @@ For this to work the scripts need to have names of the form ``test_foo``; the in
 .. _`test-driven development`: https://en.wikipedia.org/wiki/Test-driven_development
 .. _`documentation`: https://docs.python.org/3/library/unittest.html
 
+Coverage
+~~~~~~~~
+
+Unit testing is most useful when all of the code in the codebase is checked by your test suite.
+*Code coverage* is a measure of the fraction of lines of the code which are run by a given test suite.
+
+A tool called ``coverage.py`` can be used to assess this for the unittests in this section.
+You can install it by running
+
+.. code-block:: console
+
+   $ pip install coverage
+
+and then changing the way that you call your tests to
+
+.. code-block:: console
+
+   $ coverage -m unittest test-prime.py
+
+This will gather the information which is needed to measure the coverage, and a report can be made by running
+
+.. code-block:: console
+
+   $ coverage report -m
+   Name            Stmts   Miss  Cover   Missing
+   ---------------------------------------------
+   prime.py            9      2    78%   7, 9
+   test-prime.py      13      0   100%
+   ---------------------------------------------
+   TOTAL              22      2    91%
+
+So we can see lines 7 and 9 are never called by our test suite as it currently stands.
+
 End-to-end testing
 ------------------
 
