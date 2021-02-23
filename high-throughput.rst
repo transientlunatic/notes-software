@@ -15,10 +15,10 @@ This is normally done by setting up a machine, or a cluster of networked machine
 
 
 ``htcondor``: Scheduling jobs
-=============================
+-----------------------------
 
 Submitting a jobs to condor
-===========================
+---------------------------
 
 Checking the status of condor jobs
-==================================
+----------------------------------
