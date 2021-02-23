@@ -25,6 +25,10 @@ No part of these notes is specifically intended to be more important than any ot
    environments
    documentation
    testing
+
+.. toctree::
+   :caption: Coming before v1.0!
+
    ci
    packaging
    containerisation
