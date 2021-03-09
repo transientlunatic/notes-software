@@ -277,13 +277,13 @@ In ``git`` parlance the repository you cloned is called a "remote", and by defau
 If you made a repository on your own machine, however, and now you want to push it to a remote location (say you've just made an empty repository on a service like Github), you'll need to tell ``git`` about the relationship.
 Fortunately this just involves one command, and all you need is the url for the remote repository.
 
-.. codeblock:: console
+.. code-block:: console
 
 	       $ git remote add <remote name> <remote url>
 
 For example, if you wanted to add the repository for these notes as the remote called ``origin`` on a repository:
 
-.. codeblock:: console
+.. code-block:: console
 
 	       $ git remote add origin https://github.com/transientlunatic/notes-software.git
 
@@ -301,7 +301,7 @@ The main difference is that a ``git push`` can't merge changes (strategies to co
 
 The command to push changes on the ``main`` branch to a remote called ``origin``  is
 
-.. codeblock:: console
+.. code-block:: console
 
 	       $ git push origin main
 
@@ -309,13 +309,13 @@ Now, you see to push to a given remote we need to specify it in the ``git push``
 However, we can set a specific remote and branch as the default push location, using the ``--set-upstream`` flag during a git push.
 To set the ``main`` branch on ``origin`` to be the default push and pull location run
 
-.. codeblock:: console
+.. code-block:: console
 
 	       $ git push --set-upstream origin main
 
 or alternatively, use the short-hand ``-u``:
 
-.. codeblock:: console
+.. code-block:: console
 
 	       $ git push -u origin main
 
