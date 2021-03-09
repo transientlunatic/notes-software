@@ -180,10 +180,170 @@ Well, we can do that exactly the same way as before!
 		Added a test file.
 
 
-Cloning repositories
---------------------
-(Amd getting other people's code)
+Working with remote repositories
+--------------------------------
+
+One of the very attractive features of ``git`` and other *distributed* version control systems is the ease with which you can access code over a network or the internet.
+For example, if you want to get a copy of the repository which contains the source for these notes all you need to do is run
+
+.. code-block:: console
+
+		$ git clone https://github.com/transientlunatic/notes-software.git
+
+Which will copy the repository into a directory called ``notes-software``.
+The repository will automatically be a fully initialised git repository too.
+
+When a repository is cloned this way ``git`` keeps a record of where it came from; by default the repository you cloned from will be called the ``origin`` repository.
+You can have ``git`` track numerous "remote" repositories, but for now we'll stick to just the default.
+
+You can see the list of remotes on a given repository by running
+
+.. code-block:: console
+
+   $ git remote show
+   origin
+
+In this case ``origin`` is the only remote repository, and we can see some additional information by running
+
+.. code-block:: console
+
+		$ git remote show origin
+
+		* remote origin
+		  Fetch URL: git@github.com:transientlunatic/notes-software.git
+		  Push  URL: git@github.com:transientlunatic/notes-software.git
+		  HEAD branch: master
+		  Remote branch:
+		    master tracked
+		  Local branch configured for 'git pull':
+		    master merges with remote master
+		  Local ref configured for 'git push':
+		    master pushes to master (up-to-date)
+
+For now don't worry about what all of this means; right now the ``Fetch URL`` and ``Push URL`` fields should make sense though, as the location of the repository, which is on the internet in this case.
+
+Fetching and pulling
+~~~~~~~~~~~~~~~~~~~~
+
+Now that we've introduced repositories which live in other places, there is the possibility that the repository will have received new commits either from yourself or a collaborator.
+To download those changes, and to learn about their existence git uses a mechanism called a "fetch".
+
+So, if I wanted to download new commits from the remote repository ``origin`` I would run
+
+.. code-block:: console
+
+		$ git fetch origin
+
+Git will then go and check the remote repository for changes, and download those to my local machine.
+Importantly, running a ``git fetch`` gets new data, but it doesn't attempt to update the current state of your local repository.
+
+The current state of your repository is known as its ``HEAD``.
+By default this will be the most recent commit in your repository, but as we'll see in due course we can move it to different places.
+
+When we want to incorporate code from the remote repository into the current state of the repository we need to use a ``git pull``, which fetches the remote data and then merges it into your own repository.
+You can do this by running
+
+.. code-block:: console
+
+		$ git pull origin master
+
+Here ``master`` is the name of the "branch" which you want to pull from.
+I'll cover branching in more detail later, but every repository has at least one branch, which is normally called ``master`` by default.
+
+.. sidebar:: ``main`` vs ``master``
+
+	     It's becoming increasingly common to call the primary branch in a repository ``main`` rather than ``master``, partly in response to the #BlackLivesMatter movement, but also because it's more descriptive.
+	     You can check the name of your local branch by running ``$ git branch``.
+
+	     I've included notes at the end of this chapter on how to change the defaul name of the primary branch on your own ``git`` installation as well.
+
+If you've not made any changes to your repository compared to those already present this process is simple, and is known as a "fast-forward".
+Things can become a little trickier if you've made changes on your repository too.
+It's generally a good idea to make sure you've committed any changes you've made to files before running a git pull.
+
+There are two possible scenarios which can occur here.
+In the first ``git`` is able to successfully work-out how to combine your changes and the changes in the remote repository.
+An example of this happening would be if two different files had been changed, and there was no ambiguity about which changes should be kept.
+
+If your merge is this kind ``git`` will make the necessary changes automatically, and it will produce a new commit with the completed merge, and will ask you to provide a commit message.
+
+
+Adding a remote to a local repository
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you've clone a remote repository then ``git`` will automatically establish a relationship between the remote repository and your local copy.
+In ``git`` parlance the repository you cloned is called a "remote", and by default it's given the name ``origin``.
+
+If you made a repository on your own machine, however, and now you want to push it to a remote location (say you've just made an empty repository on a service like Github), you'll need to tell ``git`` about the relationship.
+Fortunately this just involves one command, and all you need is the url for the remote repository.
+
+.. codeblock:: console
+
+	       $ git remote add <remote name> <remote url>
+
+For example, if you wanted to add the repository for these notes as the remote called ``origin`` on a repository:
+
+.. codeblock:: console
+
+	       $ git remote add origin https://github.com/transientlunatic/notes-software.git
+
+.. sidebar:: Multiple remotes
+
+	     We can have multiple remote repositories which we can push to and pull from, each with a different name.
+	     This can be useful if you need to maintain a repository in both an institutional and a public server.
+
+Pushing
+~~~~~~~
+
+When we have changes in our repository which we want to see reflected in a remote repository we need to use a ``git push`` to copy them to the remote.
+A ``git push`` will copy local commits to a remote in the same way that a ``git pull`` copies them from the remote to your local copy.
+The main difference is that a ``git push`` can't merge changes (strategies to cope with this are discussed in the `git-merge <section on merging>`_).
+
+The command to push changes on the ``main`` branch to a remote called ``origin``  is
+
+.. codeblock:: console
+
+	       $ git push origin main
+
+Now, you see to push to a given remote we need to specify it in the ``git push`` command.
+However, we can set a specific remote and branch as the default push location, using the ``--set-upstream`` flag during a git push.
+To set the ``main`` branch on ``origin`` to be the default push and pull location run
+
+.. codeblock:: console
+
+	       $ git push --set-upstream origin main
+
+or alternatively, use the short-hand ``-u``:
+
+.. codeblock:: console
+
+	       $ git push -u origin main
+
+
+Working with SSH and public keys
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		
+``.gitignore``
+--------------
+
+.. _git-merge:
+Merging and conflict management
+-------------------------------
+
+Branching
+---------
+
+Working with the git history
+----------------------------
+
+Pull request workflows
+----------------------
+
+Stashes
+-------
+
+Changing the default branch name
+--------------------------------
 
 .. _[staging-hg]: This is in fact a slightly peculiar feature of Git, and other version control systems, like Mercurial, don't do this, and they'll make the new commit from everything which exists in the working directory. This is simpler, but it can make it harder to make it easy to follow what's going on if there are changes to lots of files, where multiple commits might be helpful. Either way, this is how Git does things, and like it or not, it's what we need to work with.
 

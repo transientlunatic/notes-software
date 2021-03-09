@@ -5,7 +5,7 @@ copyright = '2020, Daniel Williams'
 author = 'Daniel Williams'
 
 # The full version, including alpha/beta/rc tags
-release = 'v0.1'
+release = 'v0.1.1'
 
 extensions = []
 
