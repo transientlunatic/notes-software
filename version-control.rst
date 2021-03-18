@@ -322,9 +322,22 @@ or alternatively, use the short-hand ``-u``:
 
 Working with SSH and public keys
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-		
+
+You might be finding it annoying to enter your username and password every time you connect to a remote repository.
+There's a way around this, however, using SSH key pairs.
+
+To set one of these up see the :ref:`SSH Keys` appendix.
+Once you have an SSH key you can upload your public key to the remote server to allow the connection between your machine and the remote to be authenticated using the key pair.
+
+If you're using a service such as Github you'll need to upload your SSH key to that service.
+Github `github-ssh <has instructions>`_ on doing this for their service.
+
+
+.. _git-ignore:
 ``.gitignore``
 --------------
+
+
 
 .. _git-merge:
 Merging and conflict management
@@ -349,5 +362,5 @@ Changing the default branch name
 
 .. _`installation instructions`: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 .. _`git setup`: https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup
-
+.. _`github-ssh`: https://docs.github.com/en/github/authenticating-to-github/adding-a-new-ssh-key-to-your-github-account
 
