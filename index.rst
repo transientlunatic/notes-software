@@ -34,8 +34,14 @@ No part of these notes is specifically intended to be more important than any ot
    containerisation
    high-throughput
 
+Appendices
+----------
 
+.. toctree::
+   :caption: Appendices
 
+   ssh-keys
+	     
 Indices and tables
 ==================
 
