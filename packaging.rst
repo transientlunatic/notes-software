@@ -81,8 +81,113 @@ Versioning
 Packaging with python
 ---------------------
 
+Organising your code
+~~~~~~~~~~~~~~~~~~~~
+
+In this tutorial I'm going to make a very simple package which only does a few things.
+In fact, it only does one thing, which is to make up contrived names for python packages.
+
+.. code-block:: python
+
+   import random
+   def generate_name():
+	   """
+	   Generate a randomised package name, e.g. "lachrymose_manatee" or "parsimonious_spider".
+	   """
+	   animals = ["rabbit", "gull", "spider", "manatee", "pug"]
+	   adjectives = ["adamant", "boorish", "didactic", "lachrymose", "parsimonious"]
+
+	   return "{}_{}".format(random.choice(adjectives), random.choice(animals))
+
+What’s in a name?
+~~~~~~~~~~~~~~~~~
+
+It’s important to have a name for our package, and it’s useful to follow
+some guidelines for this:
+
+1. Make the name all lowercase
+2. Make sure there isn’t a package with that name already on
+   pypi.python.org
+3. Don’t include spaces or hyphens in the name, so “lachrymose_manatee”
+   is fine, but “parsimonious possum” wouldn’t be.
+
+Let’s go ahead and call ours “lachrymose_manatee” (though more normal
+human beings might choose a more descriptive name).
+
+Planning the package
+~~~~~~~~~~~~~~~~~~~~
+
+The structure of a python package is dictated by the structure of the directories which make it up.
+Let’s assume that we’ve been sensible and put our code into a git repository.
+To start making our project we should have a directory structure inside our repository like this:
+
+::
+
+   .
+   ├── lachrymose_manatee
+   │   └── __init__.py
+   └── setup.py
+
+It may seem slightly odd that there’s a directory with the name of the project inside your repository, but this is just the structure which is most commonly used for python packages.
+
+In order to make a directory into a module we need to add an ``__init__.py`` file.
+This is the file which will be loaded when you run ``import lachrymose_manatee`` in a project.
+We can add the ``generate_name()`` function to this file.
+
+The other essential file is the ``setup.py`` in the root of the repository.
+This file contains the information which python needs to install the code.
+It can contain normal python code, but it needs a call to the ``setuptools.setup()`` function, so a minimal ``setup.py`` would look something like this:
+
+.. code:: python
+
+   from setuptools import setup
+
+   setup(name='lachrymose_manatee',
+         version = 0.1,
+         description = "Generates fun and pretentious names for packages.",
+         author = "Daniel Williams",
+         author_email = "daniel.williams@ligo.org",
+         license = "MIT",
+         packages = ["lachrymose_manatee"],
+         python_requires='>=3.5'
+         zip_safe = False)
+
+You can then install your package by running ``pip install .`` in the root directory of the repository.
+(It’s now considered bad practice to run ``python setup.py install`` directly in the repository, as this causes python to skip some of the checks which it really should be doing on packages.)
+
+
 Python & Poetry
 ---------------
 
 Publishing your code
 --------------------
+
+Ideally you’d now want everyone in the world to be able to easily install your fantastic new package by running ``pip install lachrymose_manatee`` so that everyone can have entertainingly named code.
+
+To do this we need to upload it to the python package index, PyPI.
+
+First we need to install ``wheel``, which is used for creating binary distributions of python code.
+
+.. code:: bash
+
+   $ pip install wheel
+
+We can prepare a package to be uploaded by running
+
+.. code:: bash
+
+   $ python setup.py sdist bdist_wheel
+
+This will create a directory called ``dist`` which will contain packaged versions of your code, ready to be shipped to other users.
+
+To upload this to the package repository we need another package, ``twine``:
+
+.. code:: bash
+
+   $ pip install twine
+
+We can then use this to upload our package to PyPI:
+
+.. code:: bash
+
+   $ twine upload dist/*
