@@ -7,7 +7,6 @@ These scripts frequently need access to large amounts of system resources and da
 The solution to this problem comes in the form of *batch processing* or *high throughput computing*.
 This is normally done by setting up a machine, or a cluster of networked machines, which can access resources over a period of days, weeks, or even months.
 
-
 .. sidebar:: High-performance computing
 
    High-throughput computing constrasts with another paradigm, *high-performance computing*, or HPC.
